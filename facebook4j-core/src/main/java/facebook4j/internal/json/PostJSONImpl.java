@@ -16,6 +16,8 @@
 
 package facebook4j.internal.json;
 
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.jndi.toolkit.url.Uri;
 import facebook4j.Application;
 import facebook4j.Category;
 import facebook4j.Comment;
@@ -262,6 +265,21 @@ final class PostJSONImpl extends FacebookResponseImpl implements Post, java.io.S
                 for (int i = 0; i < attachmentsJSONArray.length(); i++) {
                     JSONObject attachmentJsonObject = attachmentsJSONArray.getJSONObject(i);
                        attachments.add(new AttachmentJSONImpl(attachmentJsonObject));
+                }
+
+                if (attachments.size() > 0) {
+                    if (json.isNull("object_id")) {
+                        objectId = attachments.get(0).getId();
+                    }
+                    if (json.isNull("source")) {
+                        source = attachments.get(0).getSource();
+                    }
+                    if (json.isNull("type")) {
+                        type = attachments.get(0).getType();
+                    }
+                    if (json.isNull("link")) {
+                        link = attachments.get(0).getLink();
+                    }
                 }
             } else {
                 attachments = Collections.emptyList();
@@ -619,6 +637,8 @@ final class PostJSONImpl extends FacebookResponseImpl implements Post, java.io.S
         private String title;
         private String type;
         private String url;
+        private URL source;
+        private URL link;
         private List<Attachment> subattachments;
 
         AttachmentJSONImpl(JSONObject json) throws FacebookException {
@@ -642,7 +662,12 @@ final class PostJSONImpl extends FacebookResponseImpl implements Post, java.io.S
                     else{
                         url = getRawString("file_url", mediaJSONObject);
                     }
+                    if (!mediaJSONObject.isNull("source")) {
+                        source = getURL("source", mediaJSONObject);
+                    }
                 }
+                String linkSt = getQueryParam("u", getURI("url", json));
+                try {  link = new URL(linkSt); } catch (MalformedURLException urle) {}
                 title = getRawString("title", json);
                 type = getRawString("type", json);
                 if (!json.isNull("subattachments")) {
@@ -675,6 +700,14 @@ final class PostJSONImpl extends FacebookResponseImpl implements Post, java.io.S
 
         public String getUrl() {
             return url;
+        }
+
+        public URL getSource() {
+            return source;
+        }
+
+        public URL getLink() {
+            return link;
         }
 
         public List<Attachment> getSubattachments() {
