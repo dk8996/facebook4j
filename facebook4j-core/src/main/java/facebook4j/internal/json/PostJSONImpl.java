@@ -17,7 +17,6 @@
 package facebook4j.internal.json;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,7 +26,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.sun.jndi.toolkit.url.Uri;
 import facebook4j.Application;
 import facebook4j.Category;
 import facebook4j.Comment;
