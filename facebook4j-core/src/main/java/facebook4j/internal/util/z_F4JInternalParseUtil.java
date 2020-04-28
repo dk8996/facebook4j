@@ -357,4 +357,22 @@ public final class z_F4JInternalParseUtil {
         }
     }
 
+    public static String getQueryParam(String key, URI uri) {
+        try {
+            String value = null;
+            String[] params = uri.getQuery().split("&");
+            for (String param : params)
+            {
+                String[] arr = param.split("=");
+                if (arr[0].equals(key) && arr.length > 1) {
+                    value = arr[1];
+                    break;
+                }
+            }
+            return value;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }
