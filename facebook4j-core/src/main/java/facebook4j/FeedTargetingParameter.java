@@ -16,7 +16,6 @@
 
 package facebook4j;
 
-import facebook4j.internal.org.json.JSONException;
 import facebook4j.internal.org.json.JSONObject;
 
 import java.util.Set;
@@ -38,7 +37,6 @@ public class FeedTargetingParameter extends TargetingParameter implements java.i
     private Set<IdNameEntity> collegeNetworks;
     private Set<String> collegeMajors;
     private Set<Integer> collegeYears;
-    private TargetingParameter geoLocations;
 
     public FeedTargetingParameter() {
     }
@@ -81,10 +79,6 @@ public class FeedTargetingParameter extends TargetingParameter implements java.i
 
     public void setCollegeYears(Set<Integer> collegeYears) {
         this.collegeYears = collegeYears;
-    }
-
-    public void setGeoLocations(TargetingParameter geoLocations) {
-        this.geoLocations = geoLocations;
     }
 
     public FeedTargetingParameter genders(Gender genders) {
@@ -137,11 +131,6 @@ public class FeedTargetingParameter extends TargetingParameter implements java.i
         return this;
     }
 
-    public FeedTargetingParameter geoLocations(TargetingParameter geoLocations) {
-        setGeoLocations(geoLocations);
-        return this;
-    }
-
     /* getters for asJSONObject() */
 
     public Gender getGenders() {
@@ -184,20 +173,17 @@ public class FeedTargetingParameter extends TargetingParameter implements java.i
         return collegeYears;
     }
 
-    public TargetingParameter getGeo_locations() {
-        return geoLocations;
-    }
 
     private JSONObject json = null;
 
-    public JSONObject asJSONObject() throws JSONException {
+    public JSONObject asJSONObject() {
         if (json == null) {
             json = new JSONObject(this);
         }
         return json;
     }
 
-    public String asJSONString() throws JSONException {
+    public String asJSONString() {
         return asJSONObject().toString();
     }
 

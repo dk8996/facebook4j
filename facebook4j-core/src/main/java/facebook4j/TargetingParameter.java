@@ -16,7 +16,6 @@
 
 package facebook4j;
 
-import facebook4j.internal.org.json.JSONException;
 import facebook4j.internal.org.json.JSONObject;
 
 import java.util.Collection;
@@ -30,10 +29,10 @@ import java.util.Set;
  */
 public class TargetingParameter implements java.io.Serializable {
     private Set<String> countries;
-    private Set<TargetingGeoLocation> cities;
-    private Set<TargetingGeoLocation> regions;
+    private Set<String> cities;
+    private Set<String> regions;
     private Set<String> locales;
-    
+
     public TargetingParameter() {
     }
 
@@ -41,11 +40,11 @@ public class TargetingParameter implements java.io.Serializable {
         this.countries = countries;
     }
 
-    public void setCities(Set<TargetingGeoLocation> cities) {
+    public void setCities(Set<String> cities) {
         this.cities = cities;
     }
 
-    public void setRegions(Set<TargetingGeoLocation> regions) {
+    public void setRegions(Set<String> regions) {
         this.regions = regions;
     }
 
@@ -72,33 +71,33 @@ public class TargetingParameter implements java.io.Serializable {
         return this;
     }
 
-    public TargetingParameter cities(Collection<TargetingGeoLocation> cities) {
+    public TargetingParameter cities(Collection<String> cities) {
         if (this.cities == null) {
-            this.cities = new LinkedHashSet<TargetingGeoLocation>();
+            this.cities = new LinkedHashSet<String>();
         }
         this.cities.addAll(cities);
         return this;
     }
 
-    public TargetingParameter city(TargetingGeoLocation city) {
+    public TargetingParameter city(String city) {
         if (cities == null) {
-            cities = new LinkedHashSet<TargetingGeoLocation>();
+            cities = new LinkedHashSet<String>();
         }
         cities.add(city);
         return this;
     }
 
-    public TargetingParameter regions(Collection<TargetingGeoLocation> regions) {
+    public TargetingParameter regions(Collection<String> regions) {
         if (this.regions == null) {
-            this.regions = new LinkedHashSet<TargetingGeoLocation>();
+            this.regions = new LinkedHashSet<String>();
         }
         this.regions.addAll(regions);
         return this;
     }
 
-    public TargetingParameter region(TargetingGeoLocation region) {
+    public TargetingParameter region(String region) {
         if (regions == null) {
-            regions = new LinkedHashSet<TargetingGeoLocation>();
+            regions = new LinkedHashSet<String>();
         }
         regions.add(region);
         return this;
@@ -126,11 +125,11 @@ public class TargetingParameter implements java.io.Serializable {
         return countries;
     }
 
-    public Set<TargetingGeoLocation> getCities() {
+    public Set<String> getCities() {
         return cities;
     }
 
-    public Set<TargetingGeoLocation> getRegions() {
+    public Set<String> getRegions() {
         return regions;
     }
 
@@ -138,16 +137,17 @@ public class TargetingParameter implements java.io.Serializable {
         return locales;
     }
 
+
     private JSONObject json = null;
 
-    public JSONObject asJSONObject() throws JSONException {
+    public JSONObject asJSONObject() {
         if (json == null) {
-            json = new JSONObject().put("geo_locations", new JSONObject(this));
+            json = new JSONObject(this);
         }
         return json;
     }
 
-    public String asJSONString() throws JSONException {
+    public String asJSONString() {
         return asJSONObject().toString();
     }
 

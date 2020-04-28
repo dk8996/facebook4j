@@ -285,11 +285,7 @@ public class PostUpdate implements java.io.Serializable {
             params.add(new HttpParameter("object_attachment", objectAttachment));
         }
         if (targeting != null) {
-            try {
-                params.add(new HttpParameter("targeting", targeting.asJSONString()));
-            } catch (Exception e) {
-                new FacebookException(e.getMessage(), e);
-            }
+            params.add(new HttpParameter("targeting", targeting.asJSONString()));
         }
         if (published != null) {
             params.add(new HttpParameter("published", published));

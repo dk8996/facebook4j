@@ -177,18 +177,10 @@ public class PagePhotoUpdate implements java.io.Serializable {
             }
         }
         if (targeting != null) {
-            try {
-                params.add(new HttpParameter("targeting", targeting.asJSONString()));
-            } catch (Exception e) {
-                new FacebookException(e.getMessage(), e);
-            }
+            params.add(new HttpParameter("targeting", targeting.asJSONString()));
         }
         if (feedTargeting != null) {
-            try {
-                params.add(new HttpParameter("feed_targeting", feedTargeting.asJSONString()));
-            } catch (Exception e) {
-                new FacebookException(e.getMessage(), e);
-            }
+            params.add(new HttpParameter("feed_targeting", feedTargeting.asJSONString()));
         }
         if (published != null) {
             params.add(new HttpParameter("published", published));
