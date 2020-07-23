@@ -80,8 +80,6 @@ public interface Post extends FacebookResponse {
         String getTitle();
         String getType();
         String getUrl();
-        URL getSource();
-        URL getLink();
         List<Attachment> getSubattachments();
     }
 
