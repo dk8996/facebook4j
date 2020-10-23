@@ -665,7 +665,14 @@ final class PostJSONImpl extends FacebookResponseImpl implements Post, java.io.S
                     }
                 }
                 String linkSt = getQueryParam("u", getURI("url", json));
-                try {  link = new URL(linkSt); } catch (MalformedURLException urle) {}
+                try {
+                    link = new URL(linkSt);
+                } catch (MalformedURLException urle) {
+                    link = getURL("unshimmed_url", json);
+                }
+                if (link == null) {
+                    link = getURL("url", json);
+                }
                 title = getRawString("title", json);
                 type = getRawString("type", json);
                 if (!json.isNull("subattachments")) {
